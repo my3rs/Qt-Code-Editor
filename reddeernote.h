@@ -1,7 +1,7 @@
 #ifndef REDDEERNOTE_H
 #define REDDEERNOTE_H
 
-#include <QtGui/QMainWindow>
+#include <QtWidgets/QMainWindow>
 #include <QMenu>
 #include <QLabel>
 #include <QAction>
@@ -20,7 +20,7 @@
 #include "connection.h"
 #include "syntaxhtmlhighlighter.h"
 #include "syntaxqthighlighter.h"
-#include "ColorDialog.h"
+#include "colordialog.h"
 
 class QMenu;
 class QLabel;

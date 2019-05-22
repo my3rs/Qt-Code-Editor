@@ -48,7 +48,7 @@ ChatWidget::ChatWidget(QWidget *parent)
 
 void ChatWidget::userSelected(QListWidgetItem *item)
 {
-    selectedUser = &item->text();
+    selectedUser = new QString(item->text());
     qDebug()<<item->text();
 }
 

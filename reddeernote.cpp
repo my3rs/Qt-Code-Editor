@@ -77,7 +77,7 @@ RedDeerNote::RedDeerNote(QWidget *parent)
 
    // connect(this,SIGNAL(fileToWatcher(QString)),this,SLOT(addFileToWatcher(QString)));
 
-    // GUI-Elemente (Bereiche)
+    // GUI-Elemente (Areas)
     createMenus();
     createActions();
     addActionsToMenus();
@@ -130,17 +130,17 @@ void RedDeerNote::closeEvent(QCloseEvent *event)
 
 void RedDeerNote::createMenus()
 {
-    fileMenu = menuBar()->addMenu(tr("Datei"));
-    editMenu = menuBar()->addMenu(tr("Bearbeiten"));
-    findMenu = menuBar()->addMenu(tr("Suchen"));
-    progLangMenu = menuBar()->addMenu(tr("Sprache (Programmier)"));
-    networkMenu = menuBar()->addMenu(tr("Netzwerk"));
-    windowsMenu = menuBar()->addMenu(tr("Fenster"));
+    fileMenu = menuBar()->addMenu(tr("File"));
+    editMenu = menuBar()->addMenu(tr("Edit"));
+    findMenu = menuBar()->addMenu(tr("Search"));
+    progLangMenu = menuBar()->addMenu(tr("Language"));
+    networkMenu = menuBar()->addMenu(tr("Network"));
+    windowsMenu = menuBar()->addMenu(tr("Window"));
 
-    settingsMenu = menuBar()->addMenu(tr("Einstellungen"));
-    settingsDockMenu = settingsMenu->addMenu(tr("Fenster andocken..."));
-    settingsTollbarMenu = settingsMenu->addMenu(tr("Werkzeugleisten..."));
-    settingsSyntaxMenu = settingsMenu->addMenu(tr("Syntax Einstellungen..."));
+    settingsMenu = menuBar()->addMenu(tr("Settings"));
+    settingsDockMenu = settingsMenu->addMenu(tr("Dock..."));
+    settingsTollbarMenu = settingsMenu->addMenu(tr("Toolbars..."));
+    settingsSyntaxMenu = settingsMenu->addMenu(tr("Syntax Settings..."));
 
     helpMenu = menuBar()->addMenu(tr("?"));
 }
@@ -208,36 +208,36 @@ void RedDeerNote::addActionsToMenus()
 void RedDeerNote::createActions()
 {
     // File Menu Actions
-    fileNewAction = new QAction(QIcon(QString(":/icons/document_new.png")),tr("&Neu..."), this);
+    fileNewAction = new QAction(QIcon(QString(":/icons/document_new.png")),tr("&New..."), this);
     fileNewAction->setShortcuts(QKeySequence::New);
-    fileNewAction->setStatusTip(tr("Erstellt ein neues Dokument"));
+    fileNewAction->setStatusTip(tr("Create a New Document"));
     connect(fileNewAction, SIGNAL(triggered()), this, SLOT(newFile()));
 
-    fileOpenAction = new QAction(QIcon(QString(":/icons/document_open.png")),tr("&Oeffnen..."), this);
+    fileOpenAction = new QAction(QIcon(QString(":/icons/document_open.png")),tr("&Open..."), this);
     fileOpenAction->setShortcuts(QKeySequence::Open);
-    fileOpenAction->setStatusTip(tr("Eine bereits vorhandene Datei öffnen"));
+    fileOpenAction->setStatusTip(tr("Open an Existing Document"));
     connect(fileOpenAction, SIGNAL(triggered()), this, SLOT(showFileDialog()));
 
-    fileSaveAction = new QAction(QIcon(QString(":/icons/document_save_as.png")), tr("&Speichern"), this);
+    fileSaveAction = new QAction(QIcon(QString(":/icons/document_save_as.png")), tr("&Save"), this);
     fileSaveAction->setShortcuts(QKeySequence::Save);
-    fileSaveAction->setStatusTip(tr("Aktuell ausgewählte Datei speichern"));
+    fileSaveAction->setStatusTip(tr("Save"));
     fileSaveAction->setEnabled(false);
     connect(fileSaveAction, SIGNAL(triggered()), this, SLOT(save()));
 
-    fileSaveUnderAction = new QAction(QIcon(QString(":/icons/document_save_as.png")), tr("&Speichern unter..."), this);
+    fileSaveUnderAction = new QAction(QIcon(QString(":/icons/document_save_as.png")), tr("&Save as..."), this);
     fileSaveUnderAction->setShortcuts(QKeySequence::SaveAs);
-    fileSaveUnderAction->setStatusTip(tr("Datei in einem bestimmten Verzeichnis speichern"));
+    fileSaveUnderAction->setStatusTip(tr("Save as"));
     fileSaveUnderAction->setEnabled(false);
     connect(fileSaveUnderAction, SIGNAL(triggered()), this, SLOT(showSaveUnderDialog()));   
 
-    printAction = new QAction(QIcon(QString(":/icons/print.png")), tr("&Drucken"), this);
+    printAction = new QAction(QIcon(QString(":/icons/print.png")), tr("&Print"), this);
     printAction->setShortcuts(QKeySequence::Print);
-    printAction->setStatusTip(tr("Druckt die aktuelle Datei"));
+    printAction->setStatusTip(tr("Print the Current Document"));
     printAction->setEnabled(false);
     connect(printAction, SIGNAL(triggered()), this, SLOT(showPrintDialog()));
 
-    closeAllAction = new QAction(tr("&Alle offenen Dateien schließen"), this);
-    closeAllAction->setStatusTip(tr("Schließt alle offenen Dateien"));
+    closeAllAction = new QAction(tr("&Close All Files"), this);
+    closeAllAction->setStatusTip(tr("Close all files"));
     connect(closeAllAction, SIGNAL(triggered()), mdiArea, SLOT(closeAllSubWindows()));
 
     for(int i=0;i<MaxRecentFiles; i++){
@@ -246,35 +246,34 @@ void RedDeerNote::createActions()
         connect(recentFilesAction[i],SIGNAL(triggered()),this,SLOT(openRecentFile()));
     }
 
-    closeRedDeerAction = new QAction(QIcon(QString(":/icons/window_close.png")), tr("&Beenden"), this);
+    closeRedDeerAction = new QAction(QIcon(QString(":/icons/window_close.png")), tr("&Exit"), this);
     closeRedDeerAction->setShortcuts(QKeySequence::Close);
-    closeRedDeerAction->setStatusTip(tr("Beenden das Programm"));
+    closeRedDeerAction->setStatusTip(tr("Exit the program"));
     connect(closeRedDeerAction, SIGNAL(triggered()), this, SLOT(close()));
 
     // Find Actions
-    findAction = new QAction(QIcon(QString(":/icons/find.png")), tr("&Finden und Ersetzen"), this);
+    findAction = new QAction(QIcon(QString(":/icons/find.png")), tr("&Find and Replace"), this);
     findAction->setShortcuts(QKeySequence::Find);
-    findAction->setStatusTip(tr("Finden und Ersetzen Funktion"));
+    findAction->setStatusTip(tr("Find and Replace"));
     connect(findAction, SIGNAL(triggered()), this, SLOT(findDialog()));
 
     // Network Actions
-    sendFileToUserAction = new QAction(QIcon(QString(":/icons/file_send.png")), tr("&Datei senden"), this);
+    sendFileToUserAction = new QAction(QIcon(QString(":/icons/file_send.png")), tr("&Send File"), this);
     sendFileToUserAction->setShortcuts(QKeySequence::Find);
     sendFileToUserAction->setEnabled(false);
-    sendFileToUserAction->setStatusTip(tr("Sendet die Datei an den in der Liste augewählten User"));
+    sendFileToUserAction->setStatusTip(tr("Send the file to the user selected in the list"));
     connect(sendFileToUserAction, SIGNAL(triggered()), this, SLOT(sendFile()));
 
-    syncFileAction = new QAction(QIcon(QString(":/icons/sync.png")), tr("&Datei sync"), this);
+    syncFileAction = new QAction(QIcon(QString(":/icons/sync.png")), tr("&Sync"), this);
     syncFileAction->setEnabled(false);
-    syncFileAction->setStatusTip(tr("Synchronisiert eine Datei mit einem anderen User"));
+    syncFileAction->setStatusTip(tr("Syncs a file with another user"));
     connect(syncFileAction, SIGNAL(triggered()), this, SLOT(sendFile()));
 
     chatAction = new QAction(QIcon(QString(":/icons/chat.png")), tr("&Chat"), this);
-    chatAction->setStatusTip(tr("Öffnet und startet den Network WorkChat"));
+    chatAction->setStatusTip(tr("Start a chat"));
     connect(chatAction, SIGNAL(triggered()), this, SLOT(sendFile()));
 
-    lockUnlockAction = new QAction(QIcon(QString(":/icons/lock.png")), tr("&Datei lock"), this);
-    //lockUnlockAction->setStatusTip(tr("Öffnet und startet den Network WorkChat"));
+    lockUnlockAction = new QAction(QIcon(QString(":/icons/lock.png")), tr("&File Lock"), this);
     connect(chatAction, SIGNAL(triggered()), this, SLOT(sendFile()));
 
     // Syntax / Completiotion Actions
@@ -284,57 +283,57 @@ void RedDeerNote::createActions()
     connect(htmlSyntaxAction, SIGNAL(triggered()), this, SLOT(enableHtmlHighlighter()));
 
     cplusplusSyntaxAction = new QAction(QIcon(QString(":/icons/cpp.png")), tr("&C++"), this);
-    cplusplusSyntaxAction->setStatusTip(tr("Aktiviert das C++ Syntax Highlighting und Autocompletion"));
+    cplusplusSyntaxAction->setStatusTip(tr("Enables the C ++ syntax highlighting and autocompletion"));
     cplusplusSyntaxAction->setEnabled(false);
     connect(cplusplusSyntaxAction, SIGNAL(triggered()), this, SLOT(enableCppHighlighter()));
 
     cssSyntaxAction = new QAction(QIcon(QString(":/icons/css.png")), tr("&CSS"), this);
-    cssSyntaxAction->setStatusTip(tr("Aktiviert das CSS Syntax Highlighting und Autocompletion"));
+    cssSyntaxAction->setStatusTip(tr("Enables the CSS syntax highlighting and autocompletion"));
     cssSyntaxAction->setEnabled(false);
     connect(cssSyntaxAction, SIGNAL(triggered()), this, SLOT(enableCssHighlighter()));
 
     javaSyntaxAction = new QAction(QIcon(QString(":/icons/java.png")), tr("&Java"), this);
-    javaSyntaxAction->setStatusTip(tr("Aktiviert das Java Syntax Highlighting und Autocompletion"));
+    javaSyntaxAction->setStatusTip(tr("Enables the Java syntax highlighting and autocompletion"));
     javaSyntaxAction->setEnabled(false);
     connect(javaSyntaxAction, SIGNAL(triggered()), this, SLOT(enableJavaHighlighter()));
 
-    javaScriptSyntaxAction = new QAction(QIcon(QString(":/icons/javascript.png")), tr("&Java Script"), this);
-    javaScriptSyntaxAction->setStatusTip(tr("Aktiviert das Java Script Syntax Highlighting und Autocompletion"));
+    javaScriptSyntaxAction = new QAction(QIcon(QString(":/icons/javascript.png")), tr("&Javascript"), this);
+    javaScriptSyntaxAction->setStatusTip(tr("Enables the Javascript syntax highlighting and autocompletion"));
     javaScriptSyntaxAction->setEnabled(false);
     connect(javaScriptSyntaxAction, SIGNAL(triggered()), this, SLOT(enableJavaScriptHighlighter()));
 
     lispSyntaxAction = new QAction(QIcon(QString(":/icons/lisp.png")), tr("&Lisp"), this);
-    lispSyntaxAction->setStatusTip(tr("Aktiviert das Lisp Syntax Highlighting und Autocompletion"));
+    lispSyntaxAction->setStatusTip(tr("Enables the Lisp syntax highlighting and autocompletion"));
     lispSyntaxAction->setEnabled(false);
     connect(lispSyntaxAction, SIGNAL(triggered()), this, SLOT(enableLispHighlighter()));
 
     pascalSyntaxAction = new QAction(QIcon(QString(":/icons/pascal.png")), tr("&Pascal"), this);
-    pascalSyntaxAction->setStatusTip(tr("Aktiviert das Pascal Syntax Highlighting und Autocompletion"));
+    pascalSyntaxAction->setStatusTip(tr("Enables the Pascal syntax highlighting and autocompletion"));
     pascalSyntaxAction->setEnabled(false);
     connect(pascalSyntaxAction, SIGNAL(triggered()), this, SLOT(enablePascalHighlighter()));
 
     perlSyntaxAction = new QAction(QIcon(QString(":/icons/perl.png")), tr("&Perl"), this);
-    perlSyntaxAction->setStatusTip(tr("Aktiviert das Perl Syntax Highlighting und Autocompletion"));
+    perlSyntaxAction->setStatusTip(tr("Enables the Perl syntax highlighting and autocompletion"));
     perlSyntaxAction->setEnabled(false);
     connect(perlSyntaxAction, SIGNAL(triggered()), this, SLOT(enablePerlHighlighter()));
 
     phpSyntaxAction = new QAction(QIcon(QString(":/icons/php.png")), tr("&PHP"), this);
-    phpSyntaxAction->setStatusTip(tr("Aktiviert das PHP Syntax Highlighting und Autocompletion"));
+    phpSyntaxAction->setStatusTip(tr("Enables the PHP syntax highlighting and autocompletion"));
     phpSyntaxAction->setEnabled(false);
     connect(phpSyntaxAction, SIGNAL(triggered()), this, SLOT(enablePhpHighlighter()));
 
     texSyntaxAction = new QAction(QIcon(QString(":/icons/tex.png")), tr("&TEX (Latex)"), this);
-    texSyntaxAction->setStatusTip(tr("Aktiviert das Tex (Latex) Syntax Highlighting und Autocompletion"));
+    texSyntaxAction->setStatusTip(tr("Enables the TEX (LaTex) syntax highlighting and autocompletion"));
     texSyntaxAction->setEnabled(false);
     connect(texSyntaxAction, SIGNAL(triggered()), this, SLOT(enableTexHighlighter()));
 
     qtSyntaxAction = new QAction(QIcon(QString(":/icons/qt.png")), tr("&Qt"), this);
-    qtSyntaxAction->setStatusTip(tr("Aktiviert das Qt Syntax Highlighting und Autocompletion"));
+    qtSyntaxAction->setStatusTip(tr("Enables the Qt syntax highlighting and autocompletion"));
     qtSyntaxAction->setEnabled(false);
     connect(qtSyntaxAction, SIGNAL(triggered()), this, SLOT(enableQtHighlighter()));
 
     xmlSyntaxAction = new QAction(QIcon(QString(":/icons/xml.png")), tr("&XML"), this);
-    xmlSyntaxAction->setStatusTip(tr("Aktiviert das XML Syntax Highlighting und Autocompletion"));
+    xmlSyntaxAction->setStatusTip(tr("Enables the XML syntax highlighting and autocompletion"));
     xmlSyntaxAction->setEnabled(false);
     connect(xmlSyntaxAction, SIGNAL(triggered()), this, SLOT(enableXmlHighlighter()));
 
@@ -350,37 +349,37 @@ void RedDeerNote::createActions()
     connect(webRedDeerAction, SIGNAL(triggered()), this, SLOT(openWebRedDeer()));
 
     // MDI Options Actions
-    closeAction = new QAction(tr("&Schließen"), this);
-    closeAction->setStatusTip(tr("Schließt das aktuelle Fenster"));
+    closeAction = new QAction(tr("Close"), this);
+    closeAction->setStatusTip(tr("Close the Current Window"));
     connect(closeAction, SIGNAL(triggered()), mdiArea, SLOT(closeActiveSubWindow()));
 
-    closeAllAction = new QAction(tr("&Alle Schließen"), this);
-    closeAllAction->setStatusTip(tr("Schließt alle Fenster"));
+    closeAllAction = new QAction(tr("Close All"), this);
+    closeAllAction->setStatusTip(tr("Close All Windows"));
     connect(closeAllAction, SIGNAL(triggered()), mdiArea, SLOT(closeAllSubWindows()));
 
-    cascadeAction = new QAction(tr("&Cascade Fenster"), this);
-    cascadeAction->setStatusTip(tr("Schließt alle Fenster"));
+    cascadeAction = new QAction(tr("&Cascade Window"), this);
+    cascadeAction->setStatusTip(tr("SCascase Window"));
     connect(cascadeAction, SIGNAL(triggered()), mdiArea, SLOT(cascadeSubWindows()));
 
-    titledAction = new QAction(tr("&Title Fenster"), this);
+    titledAction = new QAction(tr("&Title Window"), this);
     titledAction->setStatusTip(tr("Schließt alle Fenster"));
     connect(titledAction, SIGNAL(triggered()), mdiArea, SLOT(tileSubWindows()));
 
-    nextAction = new QAction(QIcon(QString(":/icons/next.png")), tr("&Nächstes Fenster"), this);
-    nextAction->setStatusTip(tr("Wechselt zum nächsten Fenster"));
+    nextAction = new QAction(QIcon(QString(":/icons/next.png")), tr("&Next Window"), this);
+    nextAction->setStatusTip(tr("Switch to the Next Window"));
     nextAction->setShortcut(QKeySequence(Qt::Key_Control+Qt::Key_Right));
     connect(nextAction, SIGNAL(triggered()), mdiArea, SLOT(activateNextSubWindow()));
 
-    prevAction = new QAction(QIcon(QString(":/icons/prev.png")), tr("&Vorheriges Fenster"), this);
-    prevAction->setStatusTip(tr("Wechselt zum vorherigen Fenster"));
+    prevAction = new QAction(QIcon(QString(":/icons/prev.png")), tr("&Previous Window"), this);
+    prevAction->setStatusTip(tr("Switch to the Previous Window"));
     connect(prevAction, SIGNAL(triggered()), mdiArea, SLOT(activatePreviousSubWindow()));
 
     // Settings Actions
-    settingsSyntaxAction = new QAction(QIcon(QString(":/icons/prev.png")), tr("&Syntax Farben"), this);
-    settingsSyntaxAction->setStatusTip(tr("Legt die Farben für das Highlighting fest"));
+    settingsSyntaxAction = new QAction(QIcon(QString(":/icons/prev.png")), tr("&Syntax Colors"), this);
+    settingsSyntaxAction->setStatusTip(tr("Defines the colors for highlighting"));
     connect(settingsSyntaxAction, SIGNAL(triggered()), this, SLOT(configureHighlighting()));
 
-    qtAboutAction = new QAction(tr("&Über Qt"), this);
+    qtAboutAction = new QAction(tr("&About Qt"), this);
     qtAboutAction->setStatusTip(tr("Qt Info"));
     connect(qtAboutAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 
@@ -412,19 +411,19 @@ void RedDeerNote::updateRecentFiles()
      separatorAct->setVisible(numRecentFiles > 0);
 }
 
-// Öffnet ein File das aus der RecentFile Liste gewählt wurde
-// wenn Datei schon geöffnet dann springe zu diesem Fenster
+// open a file from current files
+// if the file is already opened then jump to the window
 //
 // mdiArea->setActiveSubWindow(existing);
 //
-// ansonsten erstelle ein neues MDIFrame und zeige es an
+// otherwise create a new MDI window and display it
 void RedDeerNote::openRecentFile()
 {
     QAction *action = qobject_cast<QAction *>(sender());
 
     if (action){
         QMdiSubWindow *existing = getMdi(action->data().toString());
-        if (existing) { //Datei schon geöffnet
+        if (existing) {
             mdiArea->setActiveSubWindow(existing);
             return;
         }
@@ -568,49 +567,47 @@ void RedDeerNote::configureHighlighting()
     }
 }
 
-// Erstellt die Toolbar
-// und fügt die Toogle Actions der Toolbars zu den Settings hinzu
 void RedDeerNote::createToolBars()
 {
     //!!!! qtoolbar evtl. auslagern in header
     //!!!! so wie in beispiel auf
     //!!!! http://doc.trolltech.com/4.1/mainwindows-mdi-mainwindow-cpp.html
 
-    //Datei Toolbar
+    // File Toolbar
     QToolBar* toolBarFile = new QToolBar(this);
     toolBarFile ->setOrientation(Qt::Horizontal);
    // toolBarFile->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     toolBarFile->setToolButtonStyle(Qt::ToolButtonIconOnly);
     toolBarFile->setIconSize(QSize(20,20));
     this->addToolBar(Qt::TopToolBarArea, toolBarFile );
-    toolBarFile->setWindowTitle(tr("Datei Toolbar an/aus"));
+    toolBarFile->setWindowTitle(tr("File"));
     toolBarFile->addAction(fileNewAction);
     toolBarFile->addAction(fileOpenAction);
     toolBarFile->addAction(fileSaveAction);
     toolBarFile->addAction(fileSaveUnderAction);
     toolBarFile->addAction(printAction);
 
-    //Datei Toolbar
+    // Network Toolbar
     QToolBar* toolBarNetwork = new QToolBar(this);
     toolBarNetwork ->setOrientation(Qt::Horizontal);
    // toolBarNetwork->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     toolBarNetwork->setToolButtonStyle(Qt::ToolButtonIconOnly);
     toolBarNetwork->setIconSize(QSize(20,20));
     this->addToolBar(Qt::TopToolBarArea, toolBarNetwork );
-    toolBarNetwork->setWindowTitle(tr("Netzwerk Toolbar an/aus"));
+    toolBarNetwork->setWindowTitle(tr("Network"));
     toolBarNetwork->addAction(sendFileToUserAction);
     toolBarNetwork->addAction(syncFileAction);
     toolBarNetwork->addAction(chatAction);
     toolBarNetwork->addAction(lockUnlockAction);
 
-    //Datei Toolbar
+    // Search Toolbar
     QToolBar* toolBarSearch = new QToolBar(this);
     toolBarSearch ->setOrientation(Qt::Horizontal);
    // toolBarSearch->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     toolBarSearch->setToolButtonStyle(Qt::ToolButtonIconOnly);
     toolBarSearch->setIconSize(QSize(20,20));
     this->addToolBar(Qt::TopToolBarArea, toolBarSearch );
-    toolBarSearch->setWindowTitle(tr("Suche Toolbar an/aus"));
+    toolBarSearch->setWindowTitle(tr("Search"));
     toolBarSearch->addAction(findAction);
 
     settingsTollbarMenu->addAction(toolBarFile->toggleViewAction());
@@ -648,12 +645,12 @@ void RedDeerNote::createStatusBars()
     statusBar()->addWidget(maxLinesLabel);
 }
 
-// Updatet die Statusbar
-// jenachdem welcher Datentyp die Datei ist, wird die Sprache gesetzt
-// weitere Anzeigen Zeichen, Zeile, Datentyp, Sprache, Codierung
+// Update the Statusbar
+// depending on the file type and language
+// further indications character, line, data type, language, coding
 void RedDeerNote::updateStatusBar()
 {
-    //Prüfen ob Child aktiv ist
+    // Check if child is active
     if(activeMdiChild() != 0){
         QString content = activeMdiChild()->document()->toPlainText();
         QString type= activeMdiChild()->currentType();
@@ -669,21 +666,21 @@ void RedDeerNote::updateStatusBar()
             lang = "Java";
 
         if(type == "txt")
-            lang = tr("Datei(Textdokument)");
+            lang = tr("File (Text Document)");
 
         if(type == "api")
-            lang = tr("Api Datei");
+            lang = tr("Api File");
 
-        firstLabel->setText(tr("Zeichen: %1   ")
+        firstLabel->setText(tr("Character: %1   ")
                             .arg(length));
-        secondLabel->setText(tr("Zeile: %1   ")
+        secondLabel->setText(tr("Row: %1   ")
                              .arg(rows));
-        thirdLabel->setText(tr("Datentyp: %1   ")
+        thirdLabel->setText(tr("Data Type: %1   ")
                             .arg(type));
-        codierungsLabel->setText(tr("Codierung: %1   ")
+        codierungsLabel->setText(tr("Encoding: %1   ")
                             .arg(type));
 
-        maxLinesLabel->setText(tr("Sprache: %1   ")
+        maxLinesLabel->setText(tr("Language: %1   ")
                             .arg(lang));
     }
 }
@@ -691,17 +688,17 @@ void RedDeerNote::updateStatusBar()
 void RedDeerNote::createMdiArea()
 {
     mdiArea = new QMdiArea;
-    // Scrollbar nur anzeigen wenn benötigt
+    // Scrollbar only show if needed
     mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    // Tabs oben ausrichten
+    // Align the tabs at the top
     mdiArea->setTabPosition(QTabWidget::North);
-    // Dokumente in TabView
+    // Documents in TabView
     mdiArea->setViewMode(QMdiArea::TabbedView);
 
     setCentralWidget(mdiArea);
 
-    // Font für mdiArea festlegen
+    // Set font for MDI area
     QFont font;
     font.setFamily("Courier");
     font.setFixedPitch(true);
@@ -763,19 +760,17 @@ void RedDeerNote::setRecentFile(const QString &fileName)
 void RedDeerNote::about(){
     QMessageBox::about(this, tr("About RedDeerNote"),
                 tr("<h4>RDNote v1.0</h4>"
-                   "<h4>Informationen:</h4>"
-                   "<p>Red Deer Note ist ein Codeeditor auf Basis von Qt. Für verschiedene Programmiersprachen. "
-                   "Dieses Programm entstand im Rahmen des Faches Qt - Ein Universelles C++ Framework an der Fachochschule Kaiserslautern.<br>"
-                   "Die verschiedenen Funktionen können auf der Internetseite nachgelesen werden."
+                   "<h4>Information:</h4>"
+                   "<p>Red Deer Note is a code editor based on Qt supporting different languages. "
                    "<br>"
-                   "<i>Author: Sascha Heyer</i><br>"
-                   "<i>Web: www.saschaheyer.de</i><br>"
-                   "<i>E-Mail: mail@saschaheyer.de</i><br><hr />"
-                   "</p><h4>Lizenz:</h4>"
+                   "RD Note is designed for advanced code comment."
+                   "<br>"
+                   "<i>Author: </i><br>"
+                   "<i>Web: </i><br>"
+                   "<i>E-Mail: </i><br><hr />"
+                   "</p><h4>License:</h4>"
                    "<small>GNU General Public Licence<br><br>"
-                   "This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
-                   "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
-                   "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</small>"));
+                   "This program is free software"));
 }
 
 MdiFrame *RedDeerNote::activeMdiChild()
@@ -878,7 +873,7 @@ void RedDeerNote::showFileDialog()
 
             MdiFrame *frame = createMdiFrame();
             if (frame->loadFile(fileName)) {
-                statusBar()->showMessage(tr("Datei geöffnet"), 2000);
+                statusBar()->showMessage(tr("File opened"), 2000);
                 frame->show();
                 setRecentFile( activeMdiChild()->currentFile());
                 emit newFileSignal(activeMdiChild()->documentTitle());
@@ -932,7 +927,7 @@ void RedDeerNote::findDialog()
 void RedDeerNote::incomingFile(const QString &user,const QString &code)
 {
     QMessageBox msgBox;
-    msgBox.setText(user+tr(" hat die eine Datei geschickt. Möchtest du diese Datei öffnen?"));
+    msgBox.setText(user+tr("File sent. Do you want to open it?"));
     msgBox.setInformativeText(tr("Öffne die Vorschau um mehr zu erfahren"));
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::Save);
@@ -977,7 +972,7 @@ void RedDeerNote::createDockWindows()
     dirModel->setRootPath(sPath);
     tree->setModel(dirModel);
 
-    QDockWidget *dock3 = new QDockWidget(tr("Datei Browser"), this);
+    QDockWidget *dock3 = new QDockWidget(tr("File Browser"), this);
     dock3->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     dock3->setWidget(tree);
     addDockWidget(Qt::LeftDockWidgetArea, dock3);
@@ -985,7 +980,7 @@ void RedDeerNote::createDockWindows()
 
     connect(tree,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(treeViewClicked(QModelIndex)));
 
-    QDockWidget *documentDock = new QDockWidget(tr("Dokumentenliste"), this);
+    QDockWidget *documentDock = new QDockWidget(tr("Documents List"), this);
     documentDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     documentList = new QListWidget(documentDock);
     documentDock->setWidget(documentList);
@@ -1019,7 +1014,7 @@ void RedDeerNote::treeViewClicked(QModelIndex index)
 
        MdiFrame *frame = createMdiFrame();
        if (frame->loadFile(sPath)) {
-           statusBar()->showMessage(tr("Datei geöffnet"), 2000);
+           statusBar()->showMessage(tr("File opened"), 2000);
            frame->show();
            setRecentFile( activeMdiChild()->currentFile());
            activeMdiChild()->type=ext;
