@@ -12,7 +12,7 @@
 #include <QScrollBar>
 
 CodeEditor::CodeEditor(QWidget *parent)
-    : QPlainTextEdit(parent), lineNumberArea(0), c(0)
+    : QPlainTextEdit(parent), lineNumberArea(nullptr), c(nullptr)
 {
     lineNumberArea = new LineNumberArea(this);
 
@@ -78,9 +78,6 @@ void CodeEditor::resizeEvent(QResizeEvent *e)
 }
 
 
-/**
- * Aktuelle selektierte Zeile hinterlegen
- */
 void CodeEditor::highlightCurLine()
 {
     QList<QTextEdit::ExtraSelection> extraSelections;
@@ -131,7 +128,7 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 void CodeEditor::setCompleter(QCompleter *completer)
 {
     if (c)
-        QObject::disconnect(c, 0, this, 0);
+        QObject::disconnect(c, nullptr, this, nullptr);
 
     c = completer;
 

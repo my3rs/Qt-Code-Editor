@@ -21,11 +21,6 @@ SOURCES += main.cpp\
     syntaxqthighlighter.cpp \
     syntaxjavahighlighter.cpp \
     syntaxhtmlhighlighter.cpp \
-    chatwidget.cpp \
-    client.cpp \
-    server.cpp \
-    connection.cpp \
-    peertopeerhandler.cpp \
     syntaxhighcolordialog.cpp \
     colordialog.cpp \
     colorwizard.cpp \
@@ -38,11 +33,6 @@ HEADERS  += reddeernote.h \
     syntaxqthighlighter.h \
     syntaxjavahighlighter.h \
     syntaxhtmlhighlighter.h \
-    chatwidget.h \
-    client.h \
-    server.h \
-    connection.h \
-    peertopeerhandler.h \
     syntaxhighcolordialog.h \
     colordialog.h \
     colorwizard.h \

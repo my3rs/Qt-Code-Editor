@@ -21,7 +21,7 @@
 #include <QSortFilterProxyModel>
 #include <QTreeView>
 #include <QStringListModel>
-
+#include <QDebug>
 #include <QFileSystemWatcher>
 
 
@@ -35,9 +35,6 @@ RedDeerNote::RedDeerNote(QWidget *parent)
 {
     setWindowIcon(QIcon(QString(":/icons/rdicon.ico")));
 
-    // Network
-    connection = new Connection();
-    chatWidget = new ChatWidget(this);
 
     // FileSystemWatcher
    // watcher = new QFileSystemWatcher(this);
@@ -65,7 +62,6 @@ RedDeerNote::RedDeerNote(QWidget *parent)
     // Connects
     connect(mdiArea,SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(buttonChecker()));
     connect(mdiArea,SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(updateStatusBar()));
-    connect(chatWidget, SIGNAL(sendCodeToMdiFrame(QString,QString)),this, SLOT(incomingFile(QString,QString)));
     connect(this,SIGNAL(newFileSignal(QString)),this,SLOT(insertDocument(QString)));
 
 
@@ -954,16 +950,16 @@ void RedDeerNote::incomingFile(const QString &user,const QString &code)
 
 void RedDeerNote::sendFile()
 {
-    chatWidget->sendCode(activeMdiChild()->document()->toPlainText());
+    // TODO: delete
 }
 
 void RedDeerNote::createDockWindows()
 {
-    QDockWidget *dock = new QDockWidget(tr("Network Chat"), this);
-    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    dock->setWidget(chatWidget);
-    addDockWidget(Qt::LeftDockWidgetArea, dock);
-    settingsDockMenu->addAction(dock->toggleViewAction());
+//    QDockWidget *dock = new QDockWidget(tr("Network Chat"), this);
+//    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+//    dock->setWidget(chatWidget);
+//    addDockWidget(Qt::LeftDockWidgetArea, dock);
+//    settingsDockMenu->addAction(dock->toggleViewAction());
 
 
     QTreeView * tree = new QTreeView;

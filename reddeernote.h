@@ -16,8 +16,6 @@
 
 #include "mdiframe.h"
 #include "findreplacedialog.h"
-#include "chatwidget.h"
-#include "connection.h"
 #include "syntaxhtmlhighlighter.h"
 #include "syntaxqthighlighter.h"
 #include "colordialog.h"
@@ -123,7 +121,7 @@ protected:
 
 
 private:
-    // CreateMethoden für die GUI Elemente
+    // CreateMethod for GUI Elements
     void createMenus();
     void createActions();
     void addActionsToMenus();
@@ -188,7 +186,6 @@ private:
 
     // Dialogs
     FindReplaceDialog *mFindReplaceDialog;
-    ChatWidget* chatWidget;
 
     // Network Actions
     QAction* sendFileToUserAction;
@@ -197,7 +194,6 @@ private:
     QAction* lockUnlockAction;
 
 
-    Connection* connection;
 
     // Syntax Actions
     QAction* htmlSyntaxAction;

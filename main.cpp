@@ -7,7 +7,6 @@
 #include <QSplashScreen>
 #include <QThread>
 
-#include "chatwidget.h"
 
 class SleeperThread : public QThread
 {
